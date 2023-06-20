@@ -67,7 +67,7 @@ func populateGraph(rawArtifact string, isTraversed map[string]bool) Artifact {
 }
 
 func createJSON(artifact Artifact) error {
-	file, err := os.OpenFile("./data/dependencyGraphs/"+strings.ReplaceAll(artifact.Name, "/", "")+".json", os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile("./data/"+strings.ReplaceAll(artifact.Name, "/", "")+".json", os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		return err
 	}
