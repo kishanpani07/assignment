@@ -32,7 +32,10 @@ func CreateDependencyGraph(rawDependencies []formatString.Dependency) error {
 	// Create JSON for every root package
 	for parent, isPackageRoot := range isRoot {
 		if isPackageRoot {
-			createGraph(parent)
+			err := createGraph(parent)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
@@ -43,7 +46,10 @@ func createGraph(root string) error {
 	// Recursively populate the dependency graph
 	var isTraversed map[string]bool = map[string]bool{} // To prevent dependency cycle
 	artifactTree := populateGraph(root, isTraversed)
-	createJSON(artifactTree)
+	err := createJSON(artifactTree)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
